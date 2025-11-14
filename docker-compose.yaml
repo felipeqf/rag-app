@@ -1,0 +1,40 @@
+services:
+  rag-app:
+    build: .
+    container_name: rag-app
+    ports:
+      - "8501:8501"
+    extra_hosts:
+      - "localhost:host-gateway"
+    depends_on:
+      - weaviate
+    volumes:
+      - ./chat_history.db:/app/chat_history.db
+
+  weaviate:
+    command:
+    - --host
+    - 0.0.0.0
+    - --port
+    - '8080'
+    - --scheme
+    - http
+    image: cr.weaviate.io/semitechnologies/weaviate:1.34.0
+    container_name: weaviate
+    restart: on-failure:0
+    ports:
+      - "8080:8080"
+      - "50051:50051"
+    environment:
+      QUERY_DEFAULTS_LIMIT: 25
+      AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: 'true'
+      PERSISTENCE_DATA_PATH: '/var/lib/weaviate'
+      DEFAULT_VECTORIZER_MODULE: 'none'
+      LOG_LEVEL: 'WARNING'
+      ENABLE_MODULES: ''
+      CLUSTER_HOSTNAME: 'node1'
+    volumes:
+      - weaviate_data:/var/lib/weaviate
+
+volumes:
+  weaviate_data:
