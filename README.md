@@ -43,7 +43,7 @@ This is a document-based question-answering system that combines:
 1. **Clone the repository**
 
    ```bash
-   git clone <your-repo-url>
+   git clone https://github.com/felipeqf/rag-app.git
    cd rag
    ```
 
