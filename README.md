@@ -44,7 +44,7 @@ This is a document-based question-answering system that combines:
 
    ```bash
    git clone https://github.com/felipeqf/rag-app.git
-   cd rag
+   cd rag-app
    ```
 
 2. **Configure environment variables**
